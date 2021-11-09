@@ -8,7 +8,7 @@ let threshHold = 50;
 function setup() {
   
   // create a p5 canvas at the dimensions of my webcam
-  createCanvas(640, 480);
+  createCanvas(1280, 960);
   pixelDensity(1);
   // create a p5 webcam, then hide it
   myVideo = createCapture(VIDEO);
@@ -25,6 +25,7 @@ function draw() {
   for (let y = 0; y < myVideo.height; y++) {
     for (let x =0; x < myVideo.width; x++) { 
       // const i = (y*width+x) * 4;
+      var i = (myVideo.width - x + 1 + (y * myVideo.width)) * 4;
 
       const diffR = abs(currentPixels[i+0]-prevPixels[i+0]);
       const diffG = abs(currentPixels[i+1]-prevPixels[i+1]);
@@ -43,19 +44,18 @@ function draw() {
        // if the difference between frames is less than the threshold value
        if (avgDiff < threshHold) { 
         // turn the current pixel black
-        currentPixels[i+0] = 0;
+        currentPixels[i+0] = prevPixels[i];
         currentPixels[i+1] = 0;
         currentPixels[i+2] = 0;
       } else { 
         // otherwise, turn it a nice red 
         // comment these three line out to show natural color of image
-        currentPixels[i+0] = 100;
-        currentPixels[i+1] = 100;
+        currentPixels[i+0] = 255;
+        currentPixels[i+1] = 255;
         currentPixels[i+2] = 255;
       }
 
 
-      var i = (myVideo.width - x + 1 + (y * myVideo.width)) * 4;
 
 
       var r1 = myVideo.pixels[i+1];
