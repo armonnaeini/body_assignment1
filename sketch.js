@@ -51,8 +51,8 @@ function draw() {
         // otherwise, turn it a nice red 
         // comment these three line out to show natural color of image
         currentPixels[i+0] = 255;
-        currentPixels[i+1] = 255;
-        currentPixels[i+2] = 255;
+        currentPixels[i+100] = 255;
+        currentPixels[i-100] = 255;
       }
 
 
@@ -64,14 +64,19 @@ function draw() {
 
       var rgbAvg = (r1+r2+r3)/3;
 
-    
+      if (rgbAvg >100) {
+
+        var width = map(rgbAvg, 0, 255, 0, vScale*2);
+      }
+    else {
+      var width = map(rgbAvg, 0, 255, 0, vScale);
+
+    }
       noStroke();
       fill(255);
       rectMode(CENTER);
   
-
-
-      var width = map(rgbAvg, 0, 255, 0, vScale);
+      
 
       rect(x * vScale, y *vScale, width, width);
 
